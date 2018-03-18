@@ -7,22 +7,27 @@ from scipy.io import loadmat
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
 import pandas as pd
+import numpy as np
 import os
 os.chdir("C:\\Users\\andre\\Documents\\Machine Learning\\Projects\\Project1\\Projekt2")
 os.getcwd()
 
 
 # Load Matlab data file and extract variables of interest
-mat_data = pd.read_csv('data')
-X = mat_data['X']
-X_train = mat_data['X_train']
-X_test = mat_data['X_test']
-y = mat_data['y'].squeeze()
-y_train = mat_data['y_train'].squeeze()
-y_test = mat_data['y_test'].squeeze()
-attributeNames = [name[0] for name in mat_data['attributeNames'].squeeze()]
-classNames = [name[0][0] for name in mat_data['classNames']]
-N, M = X.shape
+data = pd.read_csv('data.csv')
+data_vali = pd.read_csv('data_vali.csv')
+
+X_train = data.drop("class",axis=1)
+X_test = data_vali.drop("class",axis=1)
+
+y_train = data["class"]
+y_test = data_vali["class"]
+
+attributeNames = list(X_test)
+print(attributeNames)
+classNames = ['Class 1','Class 2']
+print(classNames)
+#N, M = X.shape What is this?? - Andreas
 C = len(classNames)
 
 
