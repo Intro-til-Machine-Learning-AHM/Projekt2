@@ -99,3 +99,12 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# LaTeX stuff
+*.aux
+*.out
+*.log
+#*.pdf
+*.fdb_latexmk
+*.fls
+*.xdv
