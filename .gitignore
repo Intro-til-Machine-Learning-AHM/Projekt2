@@ -104,10 +104,12 @@ ENV/
 *.aux
 *.out
 *.log
-#*.pdf
+report.pdf
 *.fdb_latexmk
 *.fls
 *.xdv
+*.toc
+auto/
 
 # Marcus stuff
 load_toolbox.sh
