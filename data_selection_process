@@ -1,0 +1,4 @@
+The rows of the data were shuffled into a random order,
+and the first 313 rows were selected as the main data set,
+with the remaining 79 rows being saved separately as
+a final model selection/validation data set.
