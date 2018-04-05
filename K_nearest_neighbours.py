@@ -117,5 +117,4 @@ plot(100*sum(errors,0)/N)
 xlabel('Number of neighbors')
 ylabel('Classification error rate (%)')
 show()
-
 print('Ran Exercise 7.1.2')
