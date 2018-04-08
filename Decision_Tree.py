@@ -13,77 +13,83 @@ os.chdir("C:\\Users\\andre\\Documents\\Machine Learning\\Projects\\Project1\\Pro
 os.getcwd()
 # requires data
 # Load datafiles
+
 data = pd.read_csv('data.csv')
+X_train1 = data.drop("class",axis=1)
+y_train1 = data["class"]
 
-# Assign data to train and test
-X_train = data.drop("class",axis=1)
-y_train = data["class"]
+def Tree(x,y):
+    # Assign data to train and test
+    X_train = x
+    y_train = y
 
-#Assign attributeNames and stuff
-attributeNames = list(X_train)
-classNames = ['Class 1','Class 2']
+    #Assign attributeNames and stuff
+    attributeNames = list(X_train)
+    classNames = ['Class 1','Class 2']
 
-#Convert to matrix form
-X_train = X_train.as_matrix()
-y_train = y_train.as_matrix()
+    #Convert to matrix form
+    X_train = X_train.as_matrix()
+    y_train = y_train.as_matrix()
 
-# Compute values of N, M and C.
-N = len(y_train)
-M = len(attributeNames)
-C = len(classNames)
+    # Compute values of N, M and C.
+    N = len(y_train)
+    M = len(attributeNames)
+    C = len(classNames)
 
-# Fit regression tree classifier, Gini split criterion, pruning enabled
-dtc = tree.DecisionTreeClassifier(criterion='gini', min_samples_split=50)
-dtc = dtc.fit(X_train,y_train)
+    # Fit regression tree classifier, Gini split criterion, pruning enabled
+    dtc = tree.DecisionTreeClassifier(criterion='gini', min_samples_split=50)
+    dtc = dtc.fit(X_train,y_train)
 
-# Export tree graph for visualization purposes:
-out = tree.export_graphviz(dtc, out_file='tree_gini_fat_indians.dot', feature_names=attributeNames)
+    # Export tree graph for visualization purposes:
+    out = tree.export_graphviz(dtc, out_file='tree_gini_fat_indians.dot', feature_names=attributeNames)
 
-print('Ran Exercise 5.1.6')
+    print('Ran Exercise 5.1.6')
 
-tc = np.arange(2, 20, 1)
+    tc = np.arange(2, 20, 1)
 
-# K-fold crossvalidation
-K = 10
-CV = model_selection.KFold(n_splits=K,shuffle=True)
+    # K-fold crossvalidation
+    K = 10
+    CV = model_selection.KFold(n_splits=K,shuffle=True)
 
-# Initialize variable
-Error_train = np.empty((len(tc),K))
-Error_test = np.empty((len(tc),K))
+    # Initialize variable
+    Error_train = np.empty((len(tc),K))
+    Error_test = np.empty((len(tc),K))
 
-k=0
-for train_index, test_index in CV.split(X_train):
-    print('Computing CV fold: {0}/{1}..'.format(k+1,K))
+    k=0
+    for train_index, test_index in CV.split(X_train):
+        print('Computing CV fold: {0}/{1}..'.format(k+1,K))
 
-    # extract training and test set for current CV fold
-    X_train1, y_train1 = X_train[train_index,:], y_train[train_index]
-    X_test1, y_test1 = X_train[test_index,:], y_train[test_index]
+        # extract training and test set for current CV fold
+        X_train1, y_train1 = X_train[train_index,:], y_train[train_index]
+        X_test1, y_test1 = X_train[test_index,:], y_train[test_index]
 
-    for i, t in enumerate(tc):
-        # Fit decision tree classifier, Gini split criterion, different pruning levels
-        dtc = tree.DecisionTreeClassifier(criterion='gini', max_depth=t)
-        dtc = dtc.fit(X_train1,y_train1.ravel())
-        y_est_test = dtc.predict(X_test1)
-        y_est_train = dtc.predict(X_train1)
-        # Evaluate misclassification rate over train/test data (in this CV fold)
-        misclass_rate_test = sum(np.abs(y_est_test - y_test1)) / float(len(y_est_test))
-        misclass_rate_train = sum(np.abs(y_est_train - y_train1)) / float(len(y_est_train))
-        Error_test[i,k], Error_train[i,k] = misclass_rate_test, misclass_rate_train
-    k+=1
+        for i, t in enumerate(tc):
+            # Fit decision tree classifier, Gini split criterion, different pruning levels
+            dtc = tree.DecisionTreeClassifier(criterion='gini', max_depth=t)
+            dtc = dtc.fit(X_train1,y_train1.ravel())
+            y_est_test = dtc.predict(X_test1)
+            y_est_train = dtc.predict(X_train1)
+            # Evaluate misclassification rate over train/test data (in this CV fold)
+            misclass_rate_test = sum(np.abs(y_est_test - y_test1)) / float(len(y_est_test))
+            misclass_rate_train = sum(np.abs(y_est_train - y_train1)) / float(len(y_est_train))
+            Error_test[i,k], Error_train[i,k] = misclass_rate_test, misclass_rate_train
+        k+=1
 
 
-f = figure()
-boxplot(Error_test.T)
-xlabel('Model complexity (max tree depth)')
-ylabel('Test error across CV folds, K={0})'.format(K))
+    f = figure()
+    boxplot(Error_test.T)
+    xlabel('Model complexity (max tree depth)')
+    ylabel('Test error across CV folds, K={0})'.format(K))
 
-f = figure()
-plot(tc, Error_train.mean(1))
-plot(tc, Error_test.mean(1))
-xlabel('Model complexity (max tree depth)')
-ylabel('Error (misclassification rate, CV K={0})'.format(K))
-legend(['Error_train','Error_test'])
+    f = figure()
+    plot(tc, Error_train.mean(1))
+    plot(tc, Error_test.mean(1))
+    xlabel('Model complexity (max tree depth)')
+    ylabel('Error (misclassification rate, CV K={0})'.format(K))
+    legend(['Error_train','Error_test'])
 
-show()
+    show()
 
-print('Ran Exercise 6.1.2')
+    print('Ran Exercise 6.1.2')
+
+Tree(X_train1,y_train1)

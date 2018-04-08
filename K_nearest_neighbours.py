@@ -33,11 +33,11 @@ def KNN(x,y):
     C = len(classNames)
 
     # Plot the training data points (color-coded) and test data points.
-    figure(1)
-    styles = ['.b', '.r', '.g', '.y']
-    for c in range(C):
-        class_mask = (y_train==c)
-        plot(X_train[class_mask,0], X_train[class_mask,1], styles[c])
+    #figure(1)
+    #styles = ['.b', '.r', '.g', '.y']
+    #for c in range(C):
+        #class_mask = (y_train==c)
+        #plot(X_train[class_mask,0], X_train[class_mask,1], styles[c])
 
 
     # K-nearest neighbors
@@ -45,7 +45,7 @@ def KNN(x,y):
 
     # Distance metric (corresponds to 2nd norm, euclidean distance).
     # You can set dist=1 to obtain manhattan distance (cityblock distance).
-    dist=1
+    dist=2
 
     # Fit classifier and classify the test points
     knclassifier = KNeighborsClassifier(n_neighbors=K, p=dist);
@@ -54,24 +54,24 @@ def KNN(x,y):
 
 
     # Plot the classfication results
-    styles = ['ob', 'or', 'og', 'oy']
-    for c in range(C):
-        class_mask = (y_est==c)
-        plot(X_train[class_mask,0], X_train[class_mask,1], styles[c], markersize=10)
-        plot(X_train[class_mask,0], X_train[class_mask,1], 'kx', markersize=8)
-    title('Synthetic data classification - KNN');
+    #styles = ['ob', 'or', 'og', 'oy']
+    #for c in range(C):
+        #class_mask = (y_est==c)
+        #plot(X_train[class_mask,0], X_train[class_mask,1], styles[c], markersize=10)
+        #plot(X_train[class_mask,0], X_train[class_mask,1], 'kx', markersize=8)
+    #title('Synthetic data classification - KNN');
 
     # Compute and plot confusion matrix
-    cm = confusion_matrix(y_train, y_est);
-    accuracy = 100*cm.diagonal().sum()/cm.sum(); error_rate = 100-accuracy;
-    figure(2);
-    imshow(cm, cmap='binary', interpolation='None');
-    colorbar()
-    xticks(range(C)); yticks(range(C));
-    xlabel('Predicted class'); ylabel('Actual class');
-    title('Confusion matrix (Accuracy: {0}%, Error Rate: {1}%)'.format(accuracy, error_rate));
+    #cm = confusion_matrix(y_train, y_est);
+    #accuracy = 100*cm.diagonal().sum()/cm.sum(); error_rate = 100-accuracy;
+    #figure(2);
+    #imshow(cm, cmap='binary', interpolation='None');
+    #colorbar()
+    #xticks(range(C)); yticks(range(C));
+    #xlabel('Predicted class'); ylabel('Actual class');
+    #title('Confusion matrix (Accuracy: {0}%, Error Rate: {1}%)'.format(accuracy, error_rate));
 
-    show()
+    #show()
 
     print('Ran Exercise 7.1.1')
 
@@ -107,11 +107,11 @@ def KNN(x,y):
         i+=1
 
     # Plot the classification error rate
-    figure()
-    plot(100*sum(errors,0)/N)
-    xlabel('Number of neighbors')
-    ylabel('Classification error rate (%)')
-    show()
+    #figure()
+    #plot(100*sum(errors,0)/N)
+    #xlabel('Number of neighbors')
+    #ylabel('Classification error rate (%)')
+    #show()
     index_min = np.argmin(sum(errors))
     best_k = index_min + 1
     knclassifier = KNeighborsClassifier(n_neighbors=best_k)
