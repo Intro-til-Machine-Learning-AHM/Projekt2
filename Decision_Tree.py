@@ -14,13 +14,10 @@ os.getcwd()
 # requires data
 # Load datafiles
 data = pd.read_csv('data.csv')
-data_vali = pd.read_csv('data_vali.csv')
 
 # Assign data to train and test
 X_train = data.drop("class",axis=1)
-X_test = data_vali.drop("class",axis=1)
 y_train = data["class"]
-y_test = data_vali["class"]
 
 #Assign attributeNames and stuff
 attributeNames = list(X_train)
@@ -28,9 +25,7 @@ classNames = ['Class 1','Class 2']
 
 #Convert to matrix form
 X_train = X_train.as_matrix()
-X_test = X_test.as_matrix()
 y_train = y_train.as_matrix()
-y_test = y_test.as_matrix()
 
 # Compute values of N, M and C.
 N = len(y_train)
