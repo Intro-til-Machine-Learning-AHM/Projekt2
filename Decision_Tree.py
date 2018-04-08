@@ -105,19 +105,19 @@ def Tree(x,y):
             Error_test[i,k], Error_train[i,k] = misclass_rate_test, misclass_rate_train
         k+=1
 
-    f = figure()
-    boxplot(Error_test.T)
-    xlabel('Model complexity (max tree depth)')
-    ylabel('Test error, Leave one out)'.format(N))
+    #f = figure()
+    #boxplot(Error_test.T)
+    #xlabel('Model complexity (max tree depth)')
+    #ylabel('Test error, Leave one out)'.format(N))
 
-    f = figure()
-    plot(tc, Error_train.mean(1))
-    plot(tc, Error_test.mean(1))
-    xlabel('Model complexity (max tree depth)')
-    ylabel('Error (misclassification rate, Leave one out)'.format(N))
-    legend(['Error_train','Error_test'])
+    #f = figure()
+    #plot(tc, Error_train.mean(1))
+    #plot(tc, Error_test.mean(1))
+    #xlabel('Model complexity (max tree depth)')
+    #ylabel('Error (misclassification rate, Leave one out)'.format(N))
+    #legend(['Error_train','Error_test'])
 
-    show()
+    #show()
 
     index_min = np.argmin(Error_test.mean(1))
     best_depth = tc[index_min]
