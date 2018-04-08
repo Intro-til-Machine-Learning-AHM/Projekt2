@@ -114,3 +114,4 @@ auto/
 # Marcus stuff
 load_toolbox.sh
 shell.nix
+tree_gini_fat_indians.dot
