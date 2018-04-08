@@ -1,13 +1,12 @@
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import StratifiedKFold
-import sklearn.metrics as metrics
+import sklearn as sk
 
 import ann_classification
 import K_nearest_neighbours
 
 models = {
-    "knn": K_nearest_neighbours.KNN,
+    #"knn": K_nearest_neighbours.KNN,
     "ann": ann_classification.train,
 }
 
@@ -17,7 +16,7 @@ del data_x["class"]
 data_x = np.array(data_x)
 data_y = np.array(data_y)
 
-validator = StratifiedKFold(n_splits = 5)
+validator = sk.model_selection.StratifiedKFold(n_splits = 20)
 
 results = {}
 
@@ -28,4 +27,4 @@ for train, vali in validator.split(data_x, data_y):
     for name, model_fun in models.items():
         predictor, meta = model_fun(data_x[train], data_y[train])
         result = predictor(data_x[vali])
-        results[name].append(metrics.accuracy_score(data_y[vali], result))
+        results[name].append(sk.metrics.accuracy_score(data_y[vali], result))
