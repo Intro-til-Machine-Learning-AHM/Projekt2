@@ -4,10 +4,12 @@ import sklearn as sk
 
 import ann_classification
 import K_nearest_neighbours
+import Decision_Tree
 
 models = {
-    #"knn": K_nearest_neighbours.KNN,
+    "knn": K_nearest_neighbours.KNN,
     "ann": ann_classification.train,
+    "tree":Decision_Tree.Tree
 }
 
 data_x = pd.read_csv("data.csv")
@@ -16,7 +18,7 @@ del data_x["class"]
 data_x = np.array(data_x)
 data_y = np.array(data_y)
 
-validator = sk.model_selection.StratifiedKFold(n_splits = 20)
+validator = sk.model_selection.StratifiedKFold(n_splits = 5)
 
 results = {}
 
@@ -25,6 +27,11 @@ for name in models.keys():
 
 for train, vali in validator.split(data_x, data_y):
     for name, model_fun in models.items():
+        print(name)
         predictor, meta = model_fun(data_x[train], data_y[train])
         result = predictor(data_x[vali])
+        print(sk.metrics.confusion_matrix(data_y[vali], result))
         results[name].append(sk.metrics.accuracy_score(data_y[vali], result))
+
+for name, ress in results.items():
+    print("model ", name, ". mean: ", np.mean(ress), ", sd: ", np.std(ress))

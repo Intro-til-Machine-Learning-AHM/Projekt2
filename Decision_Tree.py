@@ -9,14 +9,6 @@ import sklearn.linear_model as lm
 from toolbox_02450 import feature_selector_lr, bmplot
 import graphviz
 import os
-os.chdir("C:\\Users\\andre\\Documents\\Machine Learning\\Projects\\Project1\\Projekt2")
-os.getcwd()
-# requires data
-# Load datafiles
-
-data = pd.read_csv('data.csv')
-X_train1 = data.drop("class",axis=1)
-y_train1 = data["class"]
 
 def Tree(x,y):
     # Assign data to train and test
@@ -26,10 +18,6 @@ def Tree(x,y):
     #Assign attributeNames and stuff
     attributeNames = list(X_train)
     classNames = ['Class 1','Class 2']
-
-    #Convert to matrix form
-    X_train = X_train.as_matrix()
-    y_train = y_train.as_matrix()
 
     # Compute values of N, M and C.
     N = len(y_train)
@@ -41,7 +29,7 @@ def Tree(x,y):
     dtc = dtc.fit(X_train,y_train)
 
     # Export tree graph for visualization purposes:
-    out = tree.export_graphviz(dtc, out_file='tree_gini_fat_indians.dot', feature_names=attributeNames)
+    out = tree.export_graphviz(dtc, out_file='tree_gini_fat_indians.dot')#, feature_names=attributeNames)
 
 
     tc = np.arange(2, 20, 1)
@@ -87,11 +75,11 @@ def Tree(x,y):
     errors = np.zeros((N,len(tc)))
     k = 0
     for train_index, test_index in CV.split(X_train, y_train):
-        print('Crossvalidation fold: {0}/{1}'.format(k+1,N))
+        #print('Crossvalidation fold: {0}/{1}'.format(k+1,N))
 
         #extract training and test set for current CV fold
-        X_train1, y_train1 = X_train[train_index,:], y_train[train_index]
-        X_test1, y_test1 = X_train[test_index,:], y_train[test_index]
+        X_train1, y_train1 = X_train[train_index], y_train[train_index]
+        X_test1, y_test1 = X_train[test_index], y_train[test_index]
 
         # Fit classifier and classify the test points (consider 1 to 40 neighbors)
         for i, t in enumerate(tc):
@@ -124,6 +112,4 @@ def Tree(x,y):
     dtc = tree.DecisionTreeClassifier(criterion='gini', max_depth=best_depth)
     dtc = dtc.fit(X_train,y_train.ravel())
 
-    return (dtc,best_depth)
-
-print(Tree(X_train1,y_train1))
+    return (dtc.predict,best_depth)
