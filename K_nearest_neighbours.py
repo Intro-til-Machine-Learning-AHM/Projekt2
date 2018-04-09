@@ -11,6 +11,9 @@ import numpy as np
 import os
 from sklearn import model_selection
 
+os.chdir("C:\\Users\\andre\\Documents\\Machine Learning\\Projects\\Project1\\Projekt2")
+os.getcwd()
+
 data = pd.read_csv('data.csv')
 
 def KNN(x,y):
