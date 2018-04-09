@@ -117,7 +117,7 @@ def lreg(x,y):
     # plot the fitted model residual error as function of each attribute to
     # inspect for systematic structure in the residual
 
-    f=2 # cross-validation fold to inspect
+    f=np.argmin(Error_test_fs) # cross-validation fold to inspect
     ff=Features[:,f-1].nonzero()[0]
     if len(ff) is 0:
         print('\nNo features were selected, i.e. the data (X) in the fold cannot describe the outcomes (y).' )
