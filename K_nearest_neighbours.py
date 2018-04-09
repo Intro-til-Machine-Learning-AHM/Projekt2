@@ -11,9 +11,10 @@ import numpy as np
 import os
 from sklearn import model_selection
 
+os.chdir("C:\\Users\\andre\\Documents\\Machine Learning\\Projects\\Project1\\Projekt2")
+os.getcwd()
+
 data = pd.read_csv('data.csv')
-X_train1 = data.drop("class",axis=1)
-y_train1 = data["class"]
 
 def KNN(x,y):
     # Load datafiles
@@ -87,9 +88,9 @@ def KNN(x,y):
     errors = np.zeros((N,L))
     i=0
     for train_index, test_index in CV.split(X_train, y_train):
-        print('Crossvalidation fold: {0}/{1}'.format(i+1,N))
-        print(train_index)
-        print(test_index)
+        #print('Crossvalidation fold: {0}/{1}'.format(i+1,N))
+        #print(train_index)
+        #print(test_index)
 
         # extract training and test set for current CV fold
         X_train1 = X_train[train_index,:]
