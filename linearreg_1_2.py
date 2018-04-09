@@ -8,14 +8,11 @@ from toolbox_02450 import feature_selector_lr, bmplot
 import numpy as np
 import os
 
-os.chdir("C:\\Users\\andre\\Documents\\Machine Learning\\Projects\\Project1\\Projekt2")
-os.getcwd()
-
 # Load data from matlab file
-data = pd.read_csv('data.csv')
-X_train1 = data.drop("class",axis=1).drop("insulin",axis=1)
-y_train1 = data["insulin"]
-attributeNames = list(X_train1)
+#data = pd.read_csv('data.csv')
+#X_train1 = data.drop("class",axis=1).drop("insulin",axis=1)
+#y_train1 = data["insulin"]
+#attributeNames = list(X_train1)
 
 def lreg(x,y):
 
@@ -139,6 +136,8 @@ def lreg(x,y):
            #ylabel('residual error')
 
     #show()
-    return (m.predict,ff)
+    def predict(data):
+        return m.predict(data[:,ff])
+    return (predict,ff)
 
 #lreg(X_train1,y_train1)

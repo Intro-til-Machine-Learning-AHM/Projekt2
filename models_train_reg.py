@@ -31,8 +31,8 @@ for name in models.keys():
 for train, vali in validator.split(data_x, data_y):
     for name, model_fun in models.items():
         print(name)
-        predictor , meta = model_fun(data_x[train], data_y[train])
-        result = predictor(data_x[vali][:,meta])
+        predictor, meta = model_fun(data_x[train], data_y[train])
+        result = predictor(data_x[vali])
         #print(sk.metrics.confusion_matrix(data_y[vali], result))
         results[name].append(sk.metrics.mean_squared_error(data_y[vali], result))
 
