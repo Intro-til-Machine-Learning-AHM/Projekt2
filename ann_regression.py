@@ -5,6 +5,7 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.callbacks import EarlyStopping
+import os
 
 data_x = pd.read_csv("data.csv")
 data_y = data_x["insulin"]

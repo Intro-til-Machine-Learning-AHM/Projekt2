@@ -1,6 +1,11 @@
 import pandas as pd
 import numpy as np
 import sklearn as sk
+import scipy
+
+import os
+os.chdir("C:\\Users\\andre\\Documents\\Machine Learning\\Projects\\Project1\\Projekt2")
+os.getcwd()
 
 import linearreg_1_2
 
