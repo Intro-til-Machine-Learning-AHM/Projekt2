@@ -53,8 +53,8 @@ or other architectural features.
 \label{error-rates}
 \begin{tabular}{l|lll}
   Method & Linear regression & ANN & Constant mean\\
-  Mean & 0 & 0 & 0\\
-  Std. dev. & 0 & 0 & 0\\
+  Mean & 9820 & 10988 & 14274\\
+  Std. dev. & 3148 & 4850 & 5627\\
 \end{tabular}
 \end{table}
 
@@ -63,10 +63,10 @@ The results are summarized in Table \ref{error-rates}.
 A model that would always return the mean of the training data was included as a dummy.
 
 Applying a two-sided $t$-test to the non-dummy methods
-results in a $p$-value of $0.6632921391951752$,
+results in a $p$-value of $0.6633$,
 and thus the hypothesis that the two models are equally good cannot be rejected.
 Neither could the hypotheses that any of the models were better than the dummy
-($p = 0.16099779003670434$ and $p = 0.3516508344172751$, respectively).
+($p = 0.161$ and $p = 0.352$, respectively).
 
 
 
