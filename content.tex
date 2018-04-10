@@ -1,5 +1,7 @@
 \section{Regression}
-% TODO explain the regression problem we have chosen to solve
+We have chosen to predict the attribute : "2-Hour serum insulin concentration"
+because we found out in the last report that this attribute had a great influence on the dataset.
+It is therefore of our greatest interest to solve this problem.
 
 \subsection{Linear regression}
 
@@ -17,6 +19,8 @@ As such, this question is what we will be
 focusing our classification efforts on.
 
 \subsection{Decision tree}
+Decision trees are a way to split your training data into subsets. These splits are based on that attribute's value.
+These subsets can then predict the datapoint's class.
 One of three models we have chosen to adress our classification problem with is the
 decision tree. Decisions trees with the capacity to classify observations are called
 classification trees. These trees sort the data by using Hunt's algorithm, which
@@ -43,6 +47,9 @@ to in the last tier determines whether or not we believe the patient to have dia
 or not.
 
 \subsection{$k$-nearest neighbours}
+The KNN-method takes a datapoints' K-amount of nearest neighbours and learns to predict the datapoints' class.
+This is done by using the leave-one-out method and letting the model test the it's own ability to predict the classes.
+The method is then repeated with a higher amount of neighbours and the test-error is then found.
 The second model used is a $k$-nearest neighbors model. In our model, the nearest
 neighbour will be the neighbour with the shortest euclidean distance to the observation.
 This may become troublesome in higher-dimensional data, but with our 8 attributes, it should
@@ -62,11 +69,29 @@ method seems to perform similarly to the tree model.
 \subsection{Artificial Neural Network}
 The ANN model is the last model chosen to classify with. Results??
 
-\subsection{Logistic regression}
+\subsection{Logistic regression and Naive Bayes}
+Logistic/Multinomial Regression:
+Is a way to try to predict the probability of the datapoint being from a certain class,
+based on linear regression.
+The method is similar to linear regression, except we can make a general linear model in which we make a great set of linear regression
+and thereafter find the probability of that attribute of being in a certain class.
+Naive Bayes:
+This method can predict a datapoint's class from its' position and the probability
+of being in the either one of the classes. It does this by comparing the already existing
+datapoints' positions and then calculates the probability of a new datapoint being in that
+class depending on it's value.
 
-\subsection{Naive Bayes}
+
+Articial Neural Networks (ANN):
+MARCUS !!!!!!! hjælp, jeg forstår det ikke ):
+
+
 
 \subsection{Model comparison}
+We compared the ANN and the decision tree. We did this through finding their difference in accuracy rate.
+The classifiers are seen as different if their accuracy rate is significantly different from zero. The better one being
+the classifier being better at predicting correctly.
+
 \begin{table}[]
 \centering
 \caption{My caption}
