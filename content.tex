@@ -1,11 +1,22 @@
 \section{Regression}
-We have chosen to predict the attribute : "2-Hour serum insulin concentration"
-because we found out in the last report that this attribute had a great influence on the dataset.
-It is therefore of our greatest interest to solve this problem.
+As it is the most clinically relevant parameter,
+and also the most demanding to measure,
+we have chosen to attempt to predict the 2-hour serum insulin concentrations
+from other, more easily determined variables
+(excluding, of course, the class variable).
+As we found in the previous report,
+this attribute is of great importance to the dataset,
+which is further reason to attempt to predict it.
 
 \subsection{Linear regression}
 
 \subsection{Artificial Neural Network}
+An ANN with a large number of hidden units in several layers was constructed
+(200 units in the first hidden layer, 100 in the second),
+and normalization layers were placed before every layer but the last.
+This maintains activations at a magnitude that assists in training the network.
+As an additional consequence of placing a normalization before the first hidden layer,
+the input data would also be normalized.
 
 \subsection{Model comparison}
 
