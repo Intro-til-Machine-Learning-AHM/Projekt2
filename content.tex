@@ -10,8 +10,17 @@ which is further reason to attempt to predict it.
 
 \subsection{Linear regression}
 We have used a linear regression with feature selection to predict the attribute.
-A linear regression without feature selection 
-
+A linear regression without feature selection and one with can then be compared. We
+used a script that did this from the course, and in an inner loop, optimal parameters
+were found that were then sent to the outer loop. Each time, the amount of parameters
+and which parameters we saw changed, but in general, glucose made the cut as this attribute
+explanins a lot about the other attributes. We did not standardize the data and therefore,
+analyzing the weights for the regression does not really make sense. However, a new
+observation is predicted by taking the values of the chosen
+attributes and multiplying those by the weights (which are not discussed here but are the ones)
+we make or model on and send to the outer loop.
+Later in the report, this model is compared with 
+an ANN.
 \subsection{Artificial Neural Network}
 An ANN with a large number of hidden units in several layers was constructed
 (200 units in the first hidden layer, 100 in the second),
