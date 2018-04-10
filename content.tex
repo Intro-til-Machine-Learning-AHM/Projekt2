@@ -17,16 +17,72 @@ As such, this question is what we will be
 focusing our classification efforts on.
 
 \subsection{Decision tree}
+One of three models we have chosen to adress our classification problem with is the
+decision tree. Decisions trees with the capacity to classify observations are called
+classification trees. These trees sort the data by using Hunt's algorithm, which
+splits the tree iteratively, and for each iteration keeps the split with the
+highest purity gain. For this decisions tree, the "gini" impurity gain has been
+chosen to quantify impurity gain. The algorithm can be stopped, and has indeed
+been done so here, both by providing a maximum "depth" (or number of iterations
+of splits) or by providing a minimum number of number of samples at a given
+place in the tree to keep trying to improve the impurity.
+The inner loop of a doubble-layered cross-validation for the decision tree
+(which consisted of a leave-one-out cross-validation) showed
+that the model is quite robust with regard to the tree-depth, which performed
+best at the value of 3, given the following tree (when taken on all the available
+data):
+
+\includegraphics[width=\textwidth]{tree.png}
+
+So, when given a datapoint, the first thing to do when using the tree to figure
+out whether to classify a patient as with or without diabetes, is to ask whether
+the patient's glucose level is equal to or below 127.5. If true, the insulin level
+accounts for the next split, and if false, glucose once more, but with another
+value this time, accounts for the split. Which box an observation or patient belongs
+to in the last tier determines whether or not we believe the patient to have diabetes
+or not.
+
+\subsection{$k$-nearest neighbours}
+The second model used is a $k$-nearest neighbors model. In our model, the nearest
+neighbour will be the neighbour with the shortest euclidean distance to the observation.
+This may become troublesome in higher-dimensional data, but with our 8 attributes, it should
+not be too bad. The best number of neighbours were found in the inner loop with
+the leave-one-out method, however, the best k's seem to change quite a bit for the
+different data feeded to this loop by the outer loop, as can be seen below in the performance
+tables. The best performing k can be seen to be 19, however, another k was
+28 in the same run! This means that the parameter k for the model is not very
+robust and is prone to change a lot. When the k has been chosen, the model then
+predicts an observation's class based on its k nearest neighbours (as the
+name suggests). This means that if the best performing k is 19, and the 10
+data points that are closest to it by the euclidean distance is a given class,
+then this class is chosen as the predicted class. This is hard to visualize
+graphically because the dimension of our data is more than 3. Overall, this
+method seems to perform similarly to the tree model.
+
+\subsection{Artificial Neural Network}
+The ANN model is the last model chosen to classify with. Results??
 
 \subsection{Logistic regression}
 
-\subsection{$k$-nearest neighbors}
-
 \subsection{Naive Bayes}
 
-\subsection{Artificial Neural Network}
-
 \subsection{Model comparison}
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+fold                                                                      & KNN  & ANN  & Trees &  \\ \midrule
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 1}}    & 0.78 & 0.72 & 0.80  &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 2}}    & 0.75 & 0.59 & 0.70  &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 3}}    & 0.71 & 0.67 & 0.71  &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 4}}    & 0.78 & 0.79 & 0.74  &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 5}}    & 0.77 & 0.67 & 0.77  &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{FFFFFF}{\color[HTML]{000000} mean}} & 0.76 & 0.69 & 0.74  &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{FFFFFF}{\color[HTML]{000000} std}}  & 0.03 & 0.07 & 0.04  &  \\ \bottomrule
+\end{tabular}
+\end{table}
 
 \section{Previous work}
 
