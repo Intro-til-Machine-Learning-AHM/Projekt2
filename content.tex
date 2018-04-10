@@ -24,9 +24,9 @@ an ANN.
 \subsection{Artificial Neural Network}
 An ANN with a large number of hidden units in several layers was constructed
 (200 units in the first hidden layer, 100 in the second),
-and normalization layers were placed before every layer but the last.
+and standardization layers were placed before every layer but the last.
 This maintains activations at a magnitude that assists in training the network.
-As an additional consequence of placing a normalization before the first hidden layer,
+As an additional consequence of placing a standardization before the first hidden layer,
 the input data would also be normalized.
 
 The loss function for the network was chosen to be the mean squared error.
@@ -56,6 +56,27 @@ no cross-validation was performed to select between different numbers of hidden 
 or other architectural features.
 
 \subsection{Model comparison}
+\begin{table}[h]
+\centering
+\caption{Mean squared error rates for the models}
+\label{error-rates}
+\begin{tabular}{l|lll}
+  Method & Linear regression & ANN & Constant mean\\
+  Mean & 9820 & 10988 & 14274\\
+  Std. dev. & 3148 & 4850 & 5627\\
+\end{tabular}
+\end{table}
+
+The models were trained and validated with 5-fold cross-validation on the same splits.
+The results are summarized in Table \ref{error-rates}.
+A model that would always return the mean of the training data was included as a dummy.
+
+Applying a two-sided $t$-test to the non-dummy methods
+results in a $p$-value of $0.6633$,
+and thus the hypothesis that the two models are equally good cannot be rejected.
+Neither could the hypotheses that any of the models were better than the dummy
+($p = 0.161$ and $p = 0.352$, respectively).
+
 
 
 \section{Classification}
@@ -112,25 +133,23 @@ graphically because the dimension of our data is more than 3. Overall, this
 method seems to perform similarly to the tree model.
 
 \subsection{Artificial Neural Network}
-The ANN model is the last model chosen to classify with. Results??
+The Artificial Neural Network learns a possibly non-linear function
+over the dataset as a sequence of layers that each apply
+a preferably non-linear function to an affine transformation of the vector arriving
+``from below'' the layer.
 
-\subsection{Logistic regression and Naive Bayes}
-Logistic/Multinomial Regression:
-Is a way to try to predict the probability of the datapoint being from a certain class,
-based on linear regression.
-The method is similar to linear regression, except we can make a general linear model in which we make a great set of linear regression
-and thereafter find the probability of that attribute of being in a certain class.
-Naive Bayes:
-This method can predict a datapoint's class from its' position and the probability
-of being in the either one of the classes. It does this by comparing the already existing
-datapoints' positions and then calculates the probability of a new datapoint being in that
-class depending on it's value.
+There are various ways of training them with various risks of e.g.
+getting stuck in local minima, but those are out of the scope of this report.
 
+A network with the same structure as in the regression task was constructed and trained in the same way,
+including early stopping.
 
-Articial Neural Networks (ANN):
-MARCUS !!!!!!! hjælp, jeg forstår det ikke ):
-
-
+The output layer was made to consist of two neurons,
+with the activation function being softmax,
+and the loss function was chosen to be Kullback–Leibler divergence
+for its attractive interpretation as the relative entropy
+of the output of the network with respect to the ground truth
+represented by the training data.
 
 \subsection{Model comparison}
 We compared the ANN and the decision tree. We did this through finding their difference in accuracy rate.
@@ -148,9 +167,9 @@ The p-values were 0.55 for the best models and 0.0002 for the KNN and dummy comp
 The dummy values have a low standard deviation, partly because we chose to use the
 Stratified K-folds.
 
-\begin{table}[Accuracy rates for the models]
+\begin{table}[h]
 \centering
-\caption{Accuracy rates}
+\caption{Accuracy rates for the models}
 \label{my-label}
 \begin{tabular}{@{}lllll@{}}
 \toprule
@@ -178,3 +197,15 @@ with a precision of 76 per cent.
 
 \appendix
 \section{Distribution of responsibilities}
+\subsection{Regression}
+Linear regression by Andreas,
+ANN by Marcus,
+comparison by Marcus.
+\subsection{Classification}
+Explanations by Hildibjørg,
+decision tree and KNN by Andreas,
+RNN by Marcus,
+comparison text by Hildibjørg,
+comparison statistics by Andreas.
+\subsection{Previous work}
+By Hildibjørg.
