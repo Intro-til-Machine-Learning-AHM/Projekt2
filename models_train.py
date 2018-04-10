@@ -28,6 +28,7 @@ data_y = np.array(data_y)
 validator = sk.model_selection.StratifiedKFold(n_splits = 5)
 
 results = {}
+resultsretard = {}
 
 for name in models.keys():
     results[name] = list()
@@ -36,9 +37,12 @@ for train, vali in validator.split(data_x, data_y):
     for name, model_fun in models.items():
         print(name)
         predictor, meta = model_fun(data_x[train], data_y[train])
+        print(meta)
         result = predictor(data_x[vali])
         print(sk.metrics.confusion_matrix(data_y[vali], result))
         results[name].append(sk.metrics.accuracy_score(data_y[vali], result))
+    print(sk.metrics.accuracy_score(data_y[vali], np.zeros(len(data_y[vali]))))
 
 for name, ress in results.items():
-    print("model ", name, ". mean: ", np.mean(ress), ", sd: ", np.std(ress))
+    print("model ", name, ". mean: ", np.mean(ress), ", sd: ", np.std(ress), "penis:",ress)
+print(resultsretard)
