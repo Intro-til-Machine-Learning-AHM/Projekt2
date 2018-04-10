@@ -5,9 +5,16 @@ import sklearn as sk
 import linearreg_1_2
 import ann_regression
 
+def dummy(x, y):
+    mean = np.mean(y)
+    def predict(data):
+        return np.repeat(mean, data.shape[0])
+    return (predict, mean)
+
 models = {
     "lreg": linearreg_1_2.lreg,
-    "ann": ann_regression.train
+    "ann": ann_regression.train,
+    "dummy": dummy
 }
 
 #data_x = pd.read_csv("data.csv")
@@ -22,7 +29,7 @@ data_y = data["insulin"]
 data_x = np.array(data_x)
 data_y = np.array(data_y)
 
-validator = sk.model_selection.StratifiedKFold(n_splits = 5)
+validator = sk.model_selection.KFold(n_splits = 5)
 
 results = {}
 
