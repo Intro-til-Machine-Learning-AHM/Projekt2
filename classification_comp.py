@@ -8,7 +8,10 @@ import os
 os.chdir("C:\\Users\\andre\\Documents\\Machine Learning\\02450Toolbox_Python\\Scripts")
 os.getcwd()
 Error_logreg1 =np.array([0.78,0.75,0.71,0.78,0.77]) #knn
-Error_dectree1 = np.array([0.8,0.7,0.71,0.74,0.77]) #dectree
+Error_dectree1 = np.array([0.67,0.67,0.67,0.67,0.67]) #dectree / dummy
+[tstatistic, pvalue] = stats.ttest_ind(Error_logreg1,Error_dectree1)
+print(pvalue)
+print(tstatistic)
 K = 5
 Error_logreg = np.empty((K,1))
 Error_dectree = np.empty((K,1))
@@ -32,8 +35,8 @@ else:
 # Boxplot to compare classifier error distributions
 figure()
 boxplot(np.concatenate((Error_logreg, Error_dectree),axis=1))
-xlabel('Logistic Regression   vs.   Decision Tree')
-ylabel('Cross-validation error [%]')
+xlabel('KNN   vs.   Tree')
+ylabel('Cross-validation accuracy [%]')
 
 show()
 

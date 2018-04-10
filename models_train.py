@@ -6,6 +6,7 @@ import ann_classification
 import K_nearest_neighbours
 import Decision_Tree
 
+
 def dummy(x, y):
     mode = np.argmax(np.bincount(y))
     def predict(data):

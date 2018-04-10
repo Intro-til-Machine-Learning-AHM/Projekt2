@@ -9,6 +9,8 @@ this attribute is of great importance to the dataset,
 which is further reason to attempt to predict it.
 
 \subsection{Linear regression}
+We have used a linear regression with feature selection to predict the attribute.
+A linear regression without feature selection 
 
 \subsection{Artificial Neural Network}
 An ANN with a large number of hidden units in several layers was constructed
@@ -57,9 +59,7 @@ focusing our classification efforts on.
 
 \subsection{Decision tree}
 Decision trees are a way to split your training data into subsets. These splits are based on that attribute's value.
-These subsets can then predict the datapoint's class.
-One of three models we have chosen to adress our classification problem with is the
-decision tree. Decisions trees with the capacity to classify observations are called
+These subsets can then predict the datapoints' class. Decisions trees with the capacity to classify observations are called
 classification trees. These trees sort the data by using Hunt's algorithm, which
 splits the tree iteratively, and for each iteration keeps the split with the
 highest purity gain. For this decisions tree, the "gini" impurity gain has been
@@ -86,8 +86,7 @@ or not.
 \subsection{$k$-nearest neighbours}
 The KNN-method takes a datapoints' K-amount of nearest neighbours and learns to predict the datapoints' class.
 This is done by using the leave-one-out method and letting the model test the it's own ability to predict the classes.
-The method is then repeated with a higher amount of neighbours and the test-error is then found.
-The second model used is a $k$-nearest neighbors model. In our model, the nearest
+The method is then repeated with a higher amount of neighbours and the test-error is then found. In our model, the nearest
 neighbour will be the neighbour with the shortest euclidean distance to the observation.
 This may become troublesome in higher-dimensional data, but with our 8 attributes, it should
 not be too bad. The best number of neighbours were found in the inner loop with
@@ -126,29 +125,44 @@ represented by the training data.
 We compared the ANN and the decision tree. We did this through finding their difference in accuracy rate.
 The classifiers are seen as different if their accuracy rate is significantly different from zero. The better one being
 the classifier being better at predicting correctly.
+The "dummy"-predictor, predicting everyone to be healthy (or a zero) is also taken
+into account and the results can be graphically seen below in Table 1 of accuracy rates:
+\includegraphics[width=\textwidth]{comp_knn_trees.png}
+\includegraphics[width=\textwidth]{comp_knn_dummy.png}
 
-\begin{table}[]
+The tests show that we cannot statistically differentiate between our two best models,
+but they are statistically better than the dummy, which means the models beat just guessing
+that the patients are just healthy.
+The p-values were 0.55 for the best models and 0.0002 for the KNN and dummy comparison.
+The dummy values have a low standard deviation, partly because we chose to use the
+Stratified K-folds.
+
+\begin{table}[Accuracy rates for the models]
 \centering
-\caption{My caption}
+\caption{Accuracy rates}
 \label{my-label}
 \begin{tabular}{@{}lllll@{}}
 \toprule
-fold                                                                      & KNN  & ANN  & Trees &  \\ \midrule
-\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 1}}    & 0.78 & 0.72 & 0.80  &  \\ \cmidrule(r){1-1}
-\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 2}}    & 0.75 & 0.59 & 0.70  &  \\ \cmidrule(r){1-1}
-\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 3}}    & 0.71 & 0.67 & 0.71  &  \\ \cmidrule(r){1-1}
-\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 4}}    & 0.78 & 0.79 & 0.74  &  \\ \cmidrule(r){1-1}
-\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 5}}    & 0.77 & 0.67 & 0.77  &  \\ \cmidrule(r){1-1}
-\multicolumn{1}{|l|}{\cellcolor[HTML]{FFFFFF}{\color[HTML]{000000} mean}} & 0.76 & 0.69 & 0.74  &  \\ \cmidrule(r){1-1}
-\multicolumn{1}{|l|}{\cellcolor[HTML]{FFFFFF}{\color[HTML]{000000} std}}  & 0.03 & 0.07 & 0.04  &  \\ \bottomrule
+fold                                                                      & KNN  & ANN  & Trees & Dummy &  \\ \midrule
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 1}}    & 0.78 & 0.72 & 0.80  &  0.67 &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 2}}    & 0.75 & 0.7 & 0.70  &  0.67 &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 3}}    & 0.71 & 0.71 & 0.71  &  0.67 &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 4}}    & 0.78 & 0.79 & 0.74  &  0.67 &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}{\color[HTML]{000000} 5}}    & 0.77 & 8.1 & 0.77  &  0.67  &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{FFFFFF}{\color[HTML]{000000} mean}} & 0.76 & 7.4 & 0.74  &  0.67  &  \\ \cmidrule(r){1-1}
+\multicolumn{1}{|l|}{\cellcolor[HTML]{FFFFFF}{\color[HTML]{000000} std}}  & 0.03 & 0.04 & 0.04  &  0.002  &  \\ \bottomrule
 \end{tabular}
 \end{table}
 
 \section{Previous work}
 There has been made previous work on the dataset.
 An ANN was applied and there was developed an ADAP algorithm
-which was used to forecast if the Pima Indians would develope diabetes.
+which was used to forecast if the Pima Indians would develop diabetes within a 5 year period.
 This algorithm was developed by the two authors [Smith, Dickson] in 1961.
+The algorithm was trained using 576 cases, and thereafter tested on 192 cases. The model performed
+with a precision of 76 per cent.
+
+
 
 
 \appendix
