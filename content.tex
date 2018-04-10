@@ -20,6 +20,32 @@ This maintains activations at a magnitude that assists in training the network.
 As an additional consequence of placing a normalization before the first hidden layer,
 the input data would also be normalized.
 
+The loss function for the network was chosen to be the mean squared error.
+
+The network was trained with 30\% of its data set held out as validation data,
+and early stopping was employed, with training ending soon after the validation error
+ceased to decrease.
+This is cross-validation by holdout,
+where the parameter is training time.
+To see this,
+imagine training a neural network for a wide range of training steps,
+and then selecting the network that gives the lowest error
+on some held-out validation data.
+This is what we are doing,
+except reusing the work done by previous training iterations
+instead of training one network for 100 iterations,
+then a different one for 101, etc.,
+which would be a waste of computational power
+and, due to random initialization of the weights at the beginning of training,
+introduce large amounts of variance to the cross-validation process.
+
+The early stopping procedure protects against overfitting,
+and thus allows a more complex architecture to be used.
+For this reason we have deliberately chosen a large number of hidden units
+and, due to the large variance of training as well as the computational expense,
+no cross-validation was performed to select between different numbers of hidden units
+or other architectural features.
+
 \subsection{Model comparison}
 
 
@@ -131,6 +157,15 @@ fold                                                                      & KNN 
 \end{table}
 
 \section{Previous work}
+There has been made previous work on the dataset.
+An ANN was applied and there was developed an ADAP algorithm
+which was used to forecast if the Pima Indians would develop diabetes within a 5 year period.
+This algorithm was developed by the two authors [Smith, Dickson] in 1961.
+The algorithm was trained using 576 cases, and thereafter tested on 192 cases. The model performed
+with a precision of 76 per cent.
+
+
+
 
 \appendix
 \section{Distribution of responsibilities}
