@@ -13,9 +13,9 @@ which is further reason to attempt to predict it.
 \subsection{Artificial Neural Network}
 An ANN with a large number of hidden units in several layers was constructed
 (200 units in the first hidden layer, 100 in the second),
-and normalization layers were placed before every layer but the last.
+and standardization layers were placed before every layer but the last.
 This maintains activations at a magnitude that assists in training the network.
-As an additional consequence of placing a normalization before the first hidden layer,
+As an additional consequence of placing a standardization before the first hidden layer,
 the input data would also be normalized.
 
 The loss function for the network was chosen to be the mean squared error.
