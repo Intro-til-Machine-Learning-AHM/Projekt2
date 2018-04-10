@@ -11,14 +11,16 @@ data_y = data_x["insulin"]
 del data_x["class"]
 del data_x["insulin"]
 
-model = Sequential()
-model.add(Dense(units=200, activation='tanh', input_dim=7))
-model.add(Dense(units=100, activation='tanh'))
-model.add(Dense(units=1, activation='linear'))
+def train(data_x, data_y):
+    model = Sequential()
+    model.add(Dense(units=200, activation='tanh', input_dim=7))
+    model.add(Dense(units=100, activation='tanh'))
+    model.add(Dense(units=1, activation='linear'))
 
-model.compile(loss='mse', optimizer='adadelta')
+    model.compile(loss='mse', optimizer='adadelta')
 
-model.fit(data_x, data_y,
-          validation_split=0.3, epochs=1000, batch_size=20,
-          callbacks = [EarlyStopping(monitor='val_loss', patience=20)],
-          verbose = 1)
+    model.fit(data_x, data_y,
+              validation_split=0.3, epochs=1000, batch_size=10,
+              callbacks = [EarlyStopping(monitor='val_loss', patience=10)],
+              verbose = 0)
+    return (model.predict, model)

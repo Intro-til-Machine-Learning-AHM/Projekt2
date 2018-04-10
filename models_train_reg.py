@@ -3,10 +3,11 @@ import numpy as np
 import sklearn as sk
 
 import linearreg_1_2
+import ann_regression
 
 models = {
-    "lreg1": linearreg_1_2.lreg,
-    "lreg2": linearreg_1_2.lreg
+    "lreg": linearreg_1_2.lreg,
+    "ann": ann_regression.train
 }
 
 #data_x = pd.read_csv("data.csv")
